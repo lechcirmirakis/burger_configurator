@@ -1,10 +1,12 @@
 import React from "react";
 
+import { MainWrapper } from "./styles";
+
 const layout = props => {
   return (
     <>
       <div>Toolbar, SideDrawer, Backdrop</div>
-      <main>{props.children}</main>
+      <MainWrapper>{props.children}</MainWrapper>
     </>
   );
 };
