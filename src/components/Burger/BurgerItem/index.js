@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import {
   BreadBottom,
@@ -7,16 +8,46 @@ import {
   Seeds2,
   Meat,
   Salad,
-  Becon,
+  Bacon,
   Cheese,
 } from "./styles";
-
-import throwBurgerItem from "../.././../utilities/";
 
 const burgerItem = ({ type }) => {
   let item = null;
 
-  return <div></div>;
+  switch (type) {
+    case "bread-bottom":
+      item = <BreadBottom />;
+      break;
+    case "bread-top":
+      item = (
+        <BreadTop>
+          <Seeds1 />
+          <Seeds2 />
+        </BreadTop>
+      );
+      break;
+    case "meat":
+      item = <Meat />;
+      break;
+    case "cheese":
+      item = <Cheese />;
+      break;
+    case "salad":
+      item = <Salad />;
+      break;
+    case "bacon":
+      item = <Bacon />;
+      break;
+    default:
+      item = null;
+  }
+
+  return item;
+};
+
+burgerItem.propTypes = {
+  type: PropTypes.string.isRequired,
 };
 
 export default burgerItem;
