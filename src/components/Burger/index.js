@@ -3,7 +3,6 @@ import { BurgerWrapper } from "./styles";
 import BurgerItem from "./BurgerItem/";
 
 const burger = ({ items }) => {
-  
   // transform object od items to array of items and
   // check if array dont have any items
   let transformedItems = Object.keys(items)
