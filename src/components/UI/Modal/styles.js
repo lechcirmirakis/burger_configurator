@@ -13,6 +13,8 @@ export const ModalWrapper = styled.div`
   top: 30%;
   box-sizing: border-box;
   transition: all 0.3s ease-out;
+  transform: ${props => (props.show ? "translateY(0)" : "translateY(-100vh)")};
+  opacity: ${props => (props.show ? "1" : "0")};
 
   @media ${devices.mobileL} {
     width: 500px;

@@ -9,8 +9,9 @@ const buildControls = ({
   disabledInfo,
   currentPrice,
   isPurchasable,
+  ordered,
 }) => {
-  const showControls = (control, idx) => {
+  const showControls = control => {
     const { label, type } = control;
     return (
       <Control
@@ -27,13 +28,16 @@ const buildControls = ({
     <BuildControlsWrapper>
       <p>Current Price: {currentPrice}</p>
       {controls.map(showControls)}
-      <OrderButton disabled={isPurchasable}>ORDER NOW</OrderButton>
+      <OrderButton onClick={ordered} disabled={isPurchasable}>
+        ORDER NOW
+      </OrderButton>
     </BuildControlsWrapper>
   );
 };
 
 buildControls.propTypes = {
   updateItems: PropTypes.func.isRequired,
+  ordered: PropTypes.func.isRequired,
   disabledInfo: PropTypes.object.isRequired,
   currentPrice: PropTypes.number,
   isPurchasable: PropTypes.bool,

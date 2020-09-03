@@ -16,6 +16,7 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 2,
     isPurchasable: true,
+    isPurchasing: false,
   };
 
   // One function for add/remove of burger items
@@ -49,10 +50,21 @@ class BurgerBuilder extends Component {
     });
   };
 
+  purchaseHandler = () => {
+    this.setState({ isPurchasing: true });
+  };
+
+  purchaseCloseHandler = () => {
+    this.setState({ isPurchasing: false });
+  };
+
   render() {
     return (
       <>
-        <Modal>
+        <Modal
+          show={this.state.isPurchasing}
+          clicked={this.purchaseCloseHandler}
+        >
           <OrderSummary items={this.state.items} />
         </Modal>
         <Burger items={this.state.items} />
@@ -61,6 +73,7 @@ class BurgerBuilder extends Component {
           disabledInfo={disabledControlsInfo(this.state.items)}
           currentPrice={this.state.totalPrice}
           isPurchasable={this.state.isPurchasable}
+          ordered={this.purchaseHandler}
         />
       </>
     );
