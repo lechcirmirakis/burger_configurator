@@ -43,8 +43,8 @@ class BurgerBuilder extends Component {
         <BuildControls
           updateItems={this.updatedItemsHandler}
           disabledInfo={disabledControlsInfo(this.state.items)}
+          currentPrice={this.state.totalPrice}
         />
-        <p>{this.state.totalPrice}</p>
       </>
     );
   }
