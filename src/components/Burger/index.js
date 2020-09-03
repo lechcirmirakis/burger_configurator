@@ -1,6 +1,7 @@
 import React from "react";
 import { BurgerWrapper } from "./styles";
 import BurgerItem from "./BurgerItem/";
+import PropTypes from "prop-types";
 
 const burger = ({ items }) => {
   // transform object od items to array of items and
@@ -26,6 +27,10 @@ const burger = ({ items }) => {
       <BurgerItem type="bread-bottom"></BurgerItem>
     </BurgerWrapper>
   );
+};
+
+burger.propTypes = {
+  items: PropTypes.object,
 };
 
 export default burger;
