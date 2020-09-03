@@ -4,7 +4,12 @@ import Control from "./Control/";
 import { controls } from "../../../static/items";
 import PropTypes from "prop-types";
 
-const buildControls = ({ updateItems, disabledInfo, currentPrice }) => {
+const buildControls = ({
+  updateItems,
+  disabledInfo,
+  currentPrice,
+  isPurchasable,
+}) => {
   const showControls = (control, idx) => {
     const { label, type } = control;
     return (
@@ -22,7 +27,7 @@ const buildControls = ({ updateItems, disabledInfo, currentPrice }) => {
     <BuildControlsWrapper>
       <p>Current Price: {currentPrice}</p>
       {controls.map(showControls)}
-      <OrderButton>ORDER NOW</OrderButton>
+      <OrderButton disabled={isPurchasable}>ORDER NOW</OrderButton>
     </BuildControlsWrapper>
   );
 };
@@ -31,6 +36,7 @@ buildControls.propTypes = {
   updateItems: PropTypes.func.isRequired,
   disabledInfo: PropTypes.object.isRequired,
   currentPrice: PropTypes.number,
+  isPurchasable: PropTypes.bool,
 };
 
 export default buildControls;

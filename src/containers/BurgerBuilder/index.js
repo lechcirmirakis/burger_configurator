@@ -13,6 +13,7 @@ class BurgerBuilder extends Component {
       meat: 0,
     },
     totalPrice: 2,
+    isPurchasable: true,
   };
 
   // One function for add/remove of burger items
@@ -34,6 +35,16 @@ class BurgerBuilder extends Component {
       items: updatedItems,
       totalPrice: Math.round(updatedPrice * 10) / 10,
     });
+
+    this.updatePurchaseState(updatedItems);
+  };
+
+  // Function for enabled/disablen 'Order Now' button
+  updatePurchaseState = items => {
+    const sumOfPrices = Object.values(items).reduce((a, b) => a + b, 0);
+    this.setState({
+      isPurchasable: sumOfPrices <= 0,
+    });
   };
 
   render() {
@@ -44,6 +55,7 @@ class BurgerBuilder extends Component {
           updateItems={this.updatedItemsHandler}
           disabledInfo={disabledControlsInfo(this.state.items)}
           currentPrice={this.state.totalPrice}
+          isPurchasable={this.state.isPurchasable}
         />
       </>
     );
