@@ -1,5 +1,6 @@
 import React from "react";
-import { BuildControlsWrapper, OrderButton } from "./styles";
+import { BuildControlsWrapper } from "./styles";
+import { OrderButton } from "../../../styles/button";
 import Control from "./Control/";
 import { controls } from "../../../static/items";
 import PropTypes from "prop-types";

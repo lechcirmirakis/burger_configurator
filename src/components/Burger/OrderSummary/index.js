@@ -1,6 +1,7 @@
 import React from "react";
+import { OrderSummaryButton } from "../../../styles/button";
 
-const orderSummary = ({ items }) => {
+const orderSummary = ({ items, cancelOrderHandler, continueOrderHandler }) => {
   const itemsToShow = Object.keys(items).map(key => {
     return (
       <li key={key}>
@@ -15,6 +16,14 @@ const orderSummary = ({ items }) => {
       <p>A delicious burger with the following items:</p>
       <ul>{itemsToShow}</ul>
       <p>Continue to Checkout ?</p>
+      <div style={{ display: 'flex' }}>
+        <OrderSummaryButton onClick={cancelOrderHandler} cancel>
+          cancel
+        </OrderSummaryButton>
+        <OrderSummaryButton onClick={continueOrderHandler}>
+          continue
+        </OrderSummaryButton>
+      </div>
     </>
   );
 };
