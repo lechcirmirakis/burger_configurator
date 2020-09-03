@@ -1,12 +1,12 @@
 import React from "react";
-import { ControlWrapper, ControlButton } from "./styles";
+import { ControlWrapper, ControlButton, ControlLabel } from "./style";
 
 const control = ({ label }) => {
   return (
     <ControlWrapper>
-      <div>{label}</div>
-      <ControlButton>Remove</ControlButton>
-      <ControlButton>Add</ControlButton>
+      <ControlLabel>{label}</ControlLabel>
+      <ControlButton className="Less">Remove</ControlButton>
+      <ControlButton className="More">Add</ControlButton>
     </ControlWrapper>
   );
 };
