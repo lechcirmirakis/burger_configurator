@@ -1,5 +1,5 @@
 import React from "react";
-import { BuildControlsWrapper } from "./styles";
+import { BuildControlsWrapper, OrderButton } from "./styles";
 import Control from "./Control/";
 import { controls } from "../../../static/items";
 import PropTypes from "prop-types";
@@ -22,6 +22,7 @@ const buildControls = ({ updateItems, disabledInfo, currentPrice }) => {
     <BuildControlsWrapper>
       <p>Current Price: {currentPrice}</p>
       {controls.map(showControls)}
+      <OrderButton>ORDER NOW</OrderButton>
     </BuildControlsWrapper>
   );
 };
