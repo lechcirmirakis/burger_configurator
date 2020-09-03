@@ -4,6 +4,7 @@ import BuildControls from "../../components/Burger/BuildControls/";
 import { ITEMS_PRICES } from "../../static/items";
 import { disabledControlsInfo } from "../../utilities";
 import Modal from "../../components/UI/Modal/index";
+import OrderSummary from "../../components/Burger/OrderSummary";
 
 class BurgerBuilder extends Component {
   state = {
@@ -51,7 +52,9 @@ class BurgerBuilder extends Component {
   render() {
     return (
       <>
-        <Modal />
+        <Modal>
+          <OrderSummary items={this.state.items} />
+        </Modal>
         <Burger items={this.state.items} />
         <BuildControls
           updateItems={this.updatedItemsHandler}
