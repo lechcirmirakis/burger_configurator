@@ -4,6 +4,7 @@ import BurgerItem from "./BurgerItem/";
 import PropTypes from "prop-types";
 
 const burger = ({ items }) => {
+
   // transform object od items to array of items and
   // check if array dont have any items
   let transformedItems = Object.keys(items)

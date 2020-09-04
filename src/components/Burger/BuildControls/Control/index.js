@@ -1,6 +1,8 @@
 import React from "react";
-import { ControlWrapper, ControlButton, ControlLabel } from "./style";
+import { ControlWrapper, ControlLabel } from "./style";
 import PropTypes from "prop-types";
+
+import { ControlButton } from "../../../../styles/button";
 
 const control = ({ label, updateItems, type, disabled }) => {
   return (
@@ -8,12 +10,12 @@ const control = ({ label, updateItems, type, disabled }) => {
       <ControlLabel>{label}</ControlLabel>
       <ControlButton
         onClick={() => updateItems(type, "remove")}
-        className="Less"
+        add={false}
         disabled={disabled}
       >
         Remove
       </ControlButton>
-      <ControlButton onClick={() => updateItems(type, "add")} className="More">
+      <ControlButton onClick={() => updateItems(type, "add")} add>
         Add
       </ControlButton>
     </ControlWrapper>

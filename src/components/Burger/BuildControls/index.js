@@ -1,11 +1,18 @@
 import React from "react";
 import { BuildControlsWrapper } from "./styles";
+import { OrderButton } from "../../../styles/button";
 import Control from "./Control/";
 import { controls } from "../../../static/items";
 import PropTypes from "prop-types";
 
-const buildControls = ({ updateItems, disabledInfo, currentPrice }) => {
-  const showControls = (control, idx) => {
+const buildControls = ({
+  updateItems,
+  disabledInfo,
+  currentPrice,
+  isPurchasable,
+  ordered,
+}) => {
+  const showControls = control => {
     const { label, type } = control;
     return (
       <Control
@@ -22,14 +29,19 @@ const buildControls = ({ updateItems, disabledInfo, currentPrice }) => {
     <BuildControlsWrapper>
       <p>Current Price: {currentPrice}</p>
       {controls.map(showControls)}
+      <OrderButton onClick={ordered} disabled={isPurchasable}>
+        ORDER NOW
+      </OrderButton>
     </BuildControlsWrapper>
   );
 };
 
 buildControls.propTypes = {
   updateItems: PropTypes.func.isRequired,
+  ordered: PropTypes.func.isRequired,
   disabledInfo: PropTypes.object.isRequired,
   currentPrice: PropTypes.number,
+  isPurchasable: PropTypes.bool,
 };
 
 export default buildControls;
