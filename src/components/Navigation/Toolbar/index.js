@@ -7,7 +7,7 @@ const toolbar = () => {
   return (
     <ToolbarWrapper>
       <div>MENU</div>
-      <Logo />
+      <Logo height='80%'/>
       <NavigationWrapper>
         <NavigationItems />
       </NavigationWrapper>
