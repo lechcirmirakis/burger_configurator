@@ -6,8 +6,8 @@ import NavigationItems from "../NavigationItems";
 const toolbar = () => {
   return (
     <ToolbarWrapper>
+      <Logo height="80%" />
       <div>MENU</div>
-      <Logo height='80%'/>
       <NavigationWrapper>
         <NavigationItems />
       </NavigationWrapper>

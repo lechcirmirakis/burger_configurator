@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { devices } from "../../../styles/mediaQueries";
 
 export const ToolbarWrapper = styled.header`
   height: 56px;
@@ -17,4 +16,8 @@ export const ToolbarWrapper = styled.header`
 
 export const NavigationWrapper = styled.nav`
   height: 100%;
+
+  @media (max-width: 424px) {
+    display: none;
+  }
 `;
