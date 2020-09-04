@@ -1,16 +1,29 @@
-import React from "react";
+import React, { Component } from "react";
 import { MainWrapper } from "./styles";
 import Toolbar from "../Navigation/Toolbar";
-import MobileNav from '../Navigation/MobileNav';
+import MobileNav from "../Navigation/MobileNav";
 
-const layout = props => {
-  return (
-    <>
-      <Toolbar />
-      <MobileNav />
-      <MainWrapper>{props.children}</MainWrapper>
-    </>
-  );
-};
+class Layout extends Component {
+  state = {
+    showMobileNav: true,
+  };
 
-export default layout;
+  mobileNavCloseHandler = () => {
+    this.setState({ showMobileNav: false });
+  };
+
+  render() {
+    return (
+      <>
+        <Toolbar />
+        <MobileNav
+          closed={this.mobileNavCloseHandler}
+          open={this.state.showMobileNav}
+        />
+        <MainWrapper>{this.props.children}</MainWrapper>
+      </>
+    );
+  }
+}
+
+export default Layout;

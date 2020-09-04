@@ -3,10 +3,10 @@ import { ModalWrapper } from "./styles";
 import Backdrop from "../Backdrop/";
 import PropTypes from "prop-types";
 
-const modal = ({ show, children, clicked }) => {
+const modal = ({ show, children, cancelOrderHandler }) => {
   return (
     <>
-      <Backdrop show={show} click={clicked} />
+      <Backdrop show={show} click={cancelOrderHandler} />
       <ModalWrapper show={show}>{children}</ModalWrapper>
     </>
   );
@@ -15,7 +15,7 @@ const modal = ({ show, children, clicked }) => {
 modal.propTypes = {
   show: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
-  clicked: PropTypes.func.isRequired,
+  cancelOrderHandler: PropTypes.func.isRequired,
 };
 
 export default modal;
