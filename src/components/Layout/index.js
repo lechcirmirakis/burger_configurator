@@ -5,17 +5,23 @@ import MobileNav from "../Navigation/MobileNav";
 
 class Layout extends Component {
   state = {
-    showMobileNav: true,
+    showMobileNav: false,
   };
 
   mobileNavCloseHandler = () => {
     this.setState({ showMobileNav: false });
   };
 
+  mobileNavToggleHandler = () => {
+    this.setState(prevState => {
+      return { showMobileNav: !prevState.showMobileNav };
+    });
+  };
+
   render() {
     return (
       <>
-        <Toolbar />
+        <Toolbar openHandler={this.mobileNavToggleHandler} />
         <MobileNav
           closed={this.mobileNavCloseHandler}
           open={this.state.showMobileNav}
