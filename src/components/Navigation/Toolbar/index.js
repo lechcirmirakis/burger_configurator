@@ -1,13 +1,16 @@
 import React from "react";
 import { ToolbarWrapper, NavigationWrapper } from "./styles";
 import Logo from "../../Logo/";
+import NavigationItems from "../NavigationItems";
 
 const toolbar = () => {
   return (
     <ToolbarWrapper>
-      <Logo />
       <div>MENU</div>
-      <NavigationWrapper>...</NavigationWrapper>
+      <Logo />
+      <NavigationWrapper>
+        <NavigationItems />
+      </NavigationWrapper>
     </ToolbarWrapper>
   );
 };
