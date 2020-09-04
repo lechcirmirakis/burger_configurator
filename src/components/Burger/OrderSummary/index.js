@@ -1,7 +1,13 @@
 import React from "react";
 import { OrderSummaryButton } from "../../../styles/button";
+import PropTypes from "prop-types";
 
-const orderSummary = ({ items, cancelOrderHandler, continueOrderHandler }) => {
+const orderSummary = ({
+  items,
+  cancelOrderHandler,
+  continueOrderHandler,
+  price,
+}) => {
   const itemsToShow = Object.keys(items).map(key => {
     return (
       <li key={key}>
@@ -15,8 +21,12 @@ const orderSummary = ({ items, cancelOrderHandler, continueOrderHandler }) => {
       <h3>Your Order</h3>
       <p>A delicious burger with the following items:</p>
       <ul>{itemsToShow}</ul>
+      <p>
+        <strong>Total Price: </strong>
+        {price}
+      </p>
       <p>Continue to Checkout ?</p>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: "flex" }}>
         <OrderSummaryButton onClick={cancelOrderHandler} cancel>
           cancel
         </OrderSummaryButton>
@@ -26,6 +36,13 @@ const orderSummary = ({ items, cancelOrderHandler, continueOrderHandler }) => {
       </div>
     </>
   );
+};
+
+orderSummary.propTypes = {
+  price: PropTypes.number.isRequired,
+  continueOrderHandler: PropTypes.func.isRequired,
+  cancelOrderHandler: PropTypes.func.isRequired,
+  items: PropTypes.object.isRequired,
 };
 
 export default orderSummary;
