@@ -14,6 +14,7 @@ const buildControls = ({
 }) => {
   const showControls = control => {
     const { label, type } = control;
+
     return (
       <Control
         updateItems={updateItems}
@@ -39,9 +40,9 @@ const buildControls = ({
 buildControls.propTypes = {
   updateItems: PropTypes.func.isRequired,
   ordered: PropTypes.func.isRequired,
-  disabledInfo: PropTypes.object.isRequired,
   currentPrice: PropTypes.number,
   isPurchasable: PropTypes.bool,
+  disabledInfo: PropTypes.objectOf(PropTypes.bool).isRequired,
 };
 
 export default buildControls;

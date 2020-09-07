@@ -42,7 +42,7 @@ orderSummary.propTypes = {
   price: PropTypes.number.isRequired,
   continueOrderHandler: PropTypes.func.isRequired,
   cancelOrderHandler: PropTypes.func.isRequired,
-  items: PropTypes.object.isRequired,
+  items: PropTypes.objectOf(PropTypes.number).isRequired,
 };
 
 export default orderSummary;

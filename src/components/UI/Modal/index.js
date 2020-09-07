@@ -1,21 +1,29 @@
-import React from "react";
+import React, { Component } from "react";
 import { ModalWrapper } from "./styles";
 import Backdrop from "../Backdrop/";
 import PropTypes from "prop-types";
 
-const modal = ({ show, children, clicked }) => {
-  return (
-    <>
-      <Backdrop show={show} click={clicked} />
-      <ModalWrapper show={show}>{children}</ModalWrapper>
-    </>
-  );
-};
+class Modal extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.show !== this.props.show;
+  }
 
-modal.propTypes = {
+  render() {
+    const { show, children, cancelOrderHandler } = this.props;
+
+    return (
+      <>
+        <Backdrop show={show} click={cancelOrderHandler} />
+        <ModalWrapper show={show}>{children}</ModalWrapper>
+      </>
+    );
+  }
+}
+
+Modal.propTypes = {
   show: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
-  clicked: PropTypes.func.isRequired,
+  cancelOrderHandler: PropTypes.func.isRequired,
 };
 
-export default modal;
+export default Modal;

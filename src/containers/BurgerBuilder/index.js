@@ -50,12 +50,10 @@ class BurgerBuilder extends Component {
     });
   };
 
-  purchaseHandler = () => {
-    this.setState({ isPurchasing: true });
-  };
-
-  purchaseCloseHandler = () => {
-    this.setState({ isPurchasing: false });
+  orderSummaryToggle = () => {
+    this.setState(prevState => {
+      return { isPurchasing: !prevState.isPurchasing };
+    });
   };
 
   continueOrderHandler = () => {
@@ -66,11 +64,11 @@ class BurgerBuilder extends Component {
     return (
       <>
         <Modal
-          clicked={this.purchaseCloseHandler}
+          cancelOrderHandler={this.orderSummaryToggle}
           show={this.state.isPurchasing}
         >
           <OrderSummary
-            cancelOrderHandler={this.purchaseCloseHandler}
+            cancelOrderHandler={this.orderSummaryToggle}
             continueOrderHandler={this.continueOrderHandler}
             items={this.state.items}
             price={this.state.totalPrice}
@@ -80,7 +78,7 @@ class BurgerBuilder extends Component {
         <BuildControls
           updateItems={this.updatedItemsHandler}
           disabledInfo={disabledControlsInfo(this.state.items)}
-          ordered={this.purchaseHandler}
+          ordered={this.orderSummaryToggle}
           currentPrice={this.state.totalPrice}
           isPurchasable={this.state.isPurchasable}
         />
