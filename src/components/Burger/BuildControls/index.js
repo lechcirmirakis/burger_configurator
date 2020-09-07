@@ -14,6 +14,7 @@ const buildControls = ({
 }) => {
   const showControls = control => {
     const { label, type } = control;
+
     return (
       <Control
         updateItems={updateItems}
