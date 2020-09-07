@@ -2,7 +2,8 @@ import React from "react";
 import { ToolbarWrapper, NavigationWrapper } from "./styles";
 import Logo from "../../Logo/";
 import NavigationItems from "../NavigationItems";
-import NavToggle from '../MobileNav/NavToggle';
+import NavToggle from "../MobileNav/NavToggle";
+import PropTypes from "prop-types";
 
 const toolbar = ({ openHandler }) => {
   return (
@@ -14,6 +15,10 @@ const toolbar = ({ openHandler }) => {
       </NavigationWrapper>
     </ToolbarWrapper>
   );
+};
+
+toolbar.propTypes = {
+  openHandler: PropTypes.func,
 };
 
 export default toolbar;
