@@ -5,7 +5,12 @@ import PropTypes from "prop-types";
 
 class Modal extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.show !== this.props.show;
+    // rerender this component olny when prop.show
+    //is changed and if props children is changed
+    return (
+      nextProps.show !== this.props.show ||
+      nextProps.children !== this.props.children
+    );
   }
 
   render() {

@@ -5,6 +5,8 @@ import { ITEMS_PRICES } from "../../static/items";
 import { disabledControlsInfo } from "../../utilities";
 import Modal from "../../components/UI/Modal/index";
 import OrderSummary from "../../components/Burger/OrderSummary";
+import axios from "../../utilities/axios-orders";
+import Spinner from "../../components/UI/Spinner/";
 
 class BurgerBuilder extends Component {
   state = {
@@ -17,6 +19,7 @@ class BurgerBuilder extends Component {
     totalPrice: 2,
     isPurchasable: true,
     isPurchasing: false,
+    isLoading: false,
   };
 
   // One function for add/remove of burger items
@@ -50,6 +53,17 @@ class BurgerBuilder extends Component {
     });
   };
 
+  resetBurger = () => {
+    this.setState({
+      items: {
+        salad: 0,
+        bacon: 0,
+        cheese: 0,
+        meat: 0,
+      },
+    });
+  };
+
   orderSummaryToggle = () => {
     this.setState(prevState => {
       return { isPurchasing: !prevState.isPurchasing };
@@ -57,22 +71,59 @@ class BurgerBuilder extends Component {
   };
 
   continueOrderHandler = () => {
-    alert("Go on");
+    this.setState({ isLoading: true });
+
+    // price in the real app must be calculated on server side
+    const orderData = {
+      ingredients: this.state.items,
+      price: this.state.totalPrice,
+      customer: {
+        name: "Lech Cirmirakis",
+        address: {
+          street: "Marszalkowska",
+          zipCode: "01-800",
+          country: "Poland",
+        },
+      },
+      email: "test@test.com.pl",
+      delivery: "Uber Eats",
+    };
+
+    axios
+      .post("/orders.json", orderData)
+      .then(response => {
+        this.setState({ isLoading: false, isPurchasing: false });
+        this.resetBurger();
+        console.log(response);
+      })
+      .catch(error => {
+        this.setState({ isLoading: false, isPurchasing: false });
+        this.resetBurger();
+        console.log(error);
+      });
   };
 
   render() {
+    let orderSummary = (
+      <OrderSummary
+        cancelOrderHandler={this.orderSummaryToggle}
+        continueOrderHandler={this.continueOrderHandler}
+        items={this.state.items}
+        price={this.state.totalPrice}
+      />
+    );
+
+    if (this.state.isLoading) {
+      orderSummary = <Spinner />;
+    }
+
     return (
       <>
         <Modal
           cancelOrderHandler={this.orderSummaryToggle}
           show={this.state.isPurchasing}
         >
-          <OrderSummary
-            cancelOrderHandler={this.orderSummaryToggle}
-            continueOrderHandler={this.continueOrderHandler}
-            items={this.state.items}
-            price={this.state.totalPrice}
-          />
+          {orderSummary}
         </Modal>
         <Burger items={this.state.items} />
         <BuildControls
