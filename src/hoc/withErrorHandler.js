@@ -10,7 +10,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
       error: false,
     };
 
-    componentDidMount() {
+    componentWillMount() {
       axios.interceptors.request.use(req => {
         this.setState({ error: false });
         return req;
@@ -28,7 +28,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
     };
 
     render() {
-      console.log('render HOC')
       return (
         <>
           <Modal

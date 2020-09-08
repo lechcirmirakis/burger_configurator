@@ -5,22 +5,18 @@ import { ITEMS_PRICES } from "../../static/items";
 import { disabledControlsInfo } from "../../utilities";
 import Modal from "../../components/UI/Modal/index";
 import OrderSummary from "../../components/Burger/OrderSummary";
-import withErrorHandler from '../../hoc/withErrorHandler';
+import withErrorHandler from "../../hoc/withErrorHandler";
 import axios from "../../utilities/axios-orders";
 import Spinner from "../../components/UI/Spinner/";
 
 class BurgerBuilder extends Component {
   state = {
-    items: {
-      salad: 0,
-      bacon: 0,
-      cheese: 0,
-      meat: 0,
-    },
+    items: null,
     totalPrice: 2,
     isPurchasable: true,
     isPurchasing: false,
     isLoading: false,
+    error: false,
   };
 
   // One function for add/remove of burger items
@@ -102,15 +98,48 @@ class BurgerBuilder extends Component {
       });
   };
 
+  componentDidMount() {
+    axios
+      .get("/ingredients.json")
+      .then(res => {
+        this.setState({ items: res.data });
+      })
+      .catch(err => {
+        this.setState({ error: true });
+      });
+  }
+
   render() {
-    let orderSummary = (
-      <OrderSummary
-        cancelOrderHandler={this.orderSummaryToggle}
-        continueOrderHandler={this.continueOrderHandler}
-        items={this.state.items}
-        price={this.state.totalPrice}
-      />
+    let orderSummary = null;
+    let burger = this.state.error ? (
+      <p>Items can`t be loaded !</p>
+    ) : (
+      <Spinner />
     );
+
+    if (this.state.items) {
+      burger = (
+        <>
+          <Burger items={this.state.items} />
+          <BuildControls
+            updateItems={this.updatedItemsHandler}
+            disabledInfo={disabledControlsInfo(this.state.items)}
+            ordered={this.orderSummaryToggle}
+            currentPrice={this.state.totalPrice}
+            isPurchasable={this.state.isPurchasable}
+          />
+        </>
+      );
+
+      orderSummary = (
+        <OrderSummary
+          cancelOrderHandler={this.orderSummaryToggle}
+          continueOrderHandler={this.continueOrderHandler}
+          items={this.state.items}
+          price={this.state.totalPrice}
+        />
+      );
+    }
 
     if (this.state.isLoading) {
       orderSummary = <Spinner />;
@@ -124,14 +153,7 @@ class BurgerBuilder extends Component {
         >
           {orderSummary}
         </Modal>
-        <Burger items={this.state.items} />
-        <BuildControls
-          updateItems={this.updatedItemsHandler}
-          disabledInfo={disabledControlsInfo(this.state.items)}
-          ordered={this.orderSummaryToggle}
-          currentPrice={this.state.totalPrice}
-          isPurchasable={this.state.isPurchasable}
-        />
+        {burger}
       </>
     );
   }
