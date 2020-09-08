@@ -5,6 +5,7 @@ import { ITEMS_PRICES } from "../../static/items";
 import { disabledControlsInfo } from "../../utilities";
 import Modal from "../../components/UI/Modal/index";
 import OrderSummary from "../../components/Burger/OrderSummary";
+import withErrorHandler from '../../hoc/withErrorHandler';
 import axios from "../../utilities/axios-orders";
 import Spinner from "../../components/UI/Spinner/";
 
@@ -94,12 +95,10 @@ class BurgerBuilder extends Component {
       .then(response => {
         this.setState({ isLoading: false, isPurchasing: false });
         this.resetBurger();
-        console.log(response);
       })
       .catch(error => {
         this.setState({ isLoading: false, isPurchasing: false });
         this.resetBurger();
-        console.log(error);
       });
   };
 
@@ -138,4 +137,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);

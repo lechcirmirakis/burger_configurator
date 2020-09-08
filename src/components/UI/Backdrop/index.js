@@ -6,7 +6,7 @@ const backdrop = ({ show, click }) =>
   show ? <BackdropWrapper onClick={click} /> : null;
 
 backdrop.propTypes = {
-  show: PropTypes.bool.isRequired,
+  show: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   click: PropTypes.func,
 };
 
