@@ -19,6 +19,8 @@ class BurgerBuilder extends Component {
     error: false,
   };
 
+
+
   // One function for add/remove of burger items
   updatedItemsHandler = (type, kind) => {
     const updatedItems = { ...this.state.items };
@@ -68,34 +70,36 @@ class BurgerBuilder extends Component {
   };
 
   continueOrderHandler = () => {
-    this.setState({ isLoading: true });
+    // this.setState({ isLoading: true });
 
-    // price in the real app must be calculated on server side
-    const orderData = {
-      ingredients: this.state.items,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Lech Cirmirakis",
-        address: {
-          street: "Marszalkowska",
-          zipCode: "01-800",
-          country: "Poland",
-        },
-      },
-      email: "test@test.com.pl",
-      delivery: "Uber Eats",
-    };
+    // // price in the real app must be calculated on server side
+    // const orderData = {
+    //   ingredients: this.state.items,
+    //   price: this.state.totalPrice,
+    //   customer: {
+    //     name: "Lech Cirmirakis",
+    //     address: {
+    //       street: "Marszalkowska",
+    //       zipCode: "01-800",
+    //       country: "Poland",
+    //     },
+    //   },
+    //   email: "test@test.com.pl",
+    //   delivery: "Uber Eats",
+    // };
 
-    axios
-      .post("/orders.json", orderData)
-      .then(response => {
-        this.setState({ isLoading: false, isPurchasing: false });
-        this.resetBurger();
-      })
-      .catch(error => {
-        this.setState({ isLoading: false, isPurchasing: false });
-        this.resetBurger();
-      });
+    // axios
+    //   .post("/orders.json", orderData)
+    //   .then(response => {
+    //     this.setState({ isLoading: false, isPurchasing: false });
+    //     this.resetBurger();
+    //   })
+    //   .catch(error => {
+    //     this.setState({ isLoading: false, isPurchasing: false });
+    //     this.resetBurger();
+    //   });
+
+    this.props.history.push('/checkout');
   };
 
   componentDidMount() {
