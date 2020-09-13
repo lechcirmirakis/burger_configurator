@@ -19,8 +19,6 @@ class BurgerBuilder extends Component {
     error: false,
   };
 
-
-
   // One function for add/remove of burger items
   updatedItemsHandler = (type, kind) => {
     const updatedItems = { ...this.state.items };
@@ -99,7 +97,21 @@ class BurgerBuilder extends Component {
     //     this.resetBurger();
     //   });
 
-    this.props.history.push('/checkout');
+    const queryParams = [];
+
+    for (let i in this.state.items) {
+      queryParams.push(
+        encodeURIComponent(i) + "=" + encodeURIComponent(this.state.items[i])
+      );
+    }
+
+    const queryString = queryParams.join("&");
+    console.log(queryString);
+
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryString,
+    });
   };
 
   componentDidMount() {
