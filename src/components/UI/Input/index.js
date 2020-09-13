@@ -1,25 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { InputWrapper } from "./styles";
+import { InputWrapper, LabelBox, InputBox, TextareaBox } from "./styles";
 
-export const input = ({ label, inputType }) => {
+export const input = ({ placeholder, inputType }, props) => {
   let inputElement = null;
 
   switch (inputType) {
     case "input":
-      inputElement = <input {...props} />;
+      inputElement = <InputBox className='inputElement' {...props} />;
       break;
     case "textarea":
-      inputElement = <textarea {...props} />;
+      inputElement = <TextareaBox className='inputElement' {...props} />;
       break;
     default:
-      inputElement = <input {...props} />;
+      inputElement = <InputBox className='inputElement' {...props} />;
   }
 
   return (
     <InputWrapper>
-      <label>{label}</label>
+      <LabelBox>{placeholder}</LabelBox>
       {inputElement}
     </InputWrapper>
   );

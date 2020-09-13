@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import axios from "../../utilities/axios-orders";
 
 import Spinner from "../../components/UI/Spinner";
+import Input from '../../components/UI/Input';
 
 class ContactData extends Component {
   state = {
@@ -51,10 +52,10 @@ class ContactData extends Component {
   render() {
     let form = (
       <form>
-        <input type="text" name="name" placeholder="Your Name" />
-        <input type="email" name="email" placeholder="Your Email" />
-        <input type="text" name="street" placeholder="Your Adress" />
-        <input type="text" name="postal" placeholder="Your Postal Code" />
+        <Input inputType="input" name="name" placeholder="Your Name" />
+        <Input inputType="input" name="email" placeholder="Your Email" />
+        <Input inputType="input" name="street" placeholder="Your Adress" />
+        <Input inputType="input" name="postal" placeholder="Your Postal Code" />
         <button onClick={this.orderHandler}>Order</button>
       </form>
     );
