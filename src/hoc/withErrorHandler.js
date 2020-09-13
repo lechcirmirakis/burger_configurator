@@ -23,12 +23,10 @@ const withErrorHandler = (WrappedComponent, axios) => {
       );
     }
 
-    // remove instance of interceptors when component will unmount, 
+    // remove instance of interceptors when component will unmount,
     // for not keeping unnecessary data im memory
 
     componentWillUnmount() {
-      console.log('COMPONENT WILL UNOUMNT HOC !!!!');
-
       axios.interceptors.request.eject(this.reqInterceptor);
       axios.interceptors.request.eject(this.resInterceptor);
     }
