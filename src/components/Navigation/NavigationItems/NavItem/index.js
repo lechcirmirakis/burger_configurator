@@ -1,14 +1,22 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
+
 import { NavItemBox } from "./styles";
 
-const navItem = ({ children, active, link }) => {
+const navItem = ({ children, link }) => {
   return (
     <NavItemBox>
-      <a href={link} className={active ? "active" : null}>
+      <NavLink exact to={link}>
         {children}
-      </a>
+      </NavLink>
     </NavItemBox>
   );
+};
+
+navItem.propTypes = {
+  children: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
 };
 
 export default navItem;

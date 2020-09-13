@@ -50,17 +50,6 @@ class BurgerBuilder extends Component {
     });
   };
 
-  resetBurger = () => {
-    this.setState({
-      items: {
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0,
-      },
-    });
-  };
-
   orderSummaryToggle = () => {
     this.setState(prevState => {
       return { isPurchasing: !prevState.isPurchasing };
@@ -68,34 +57,21 @@ class BurgerBuilder extends Component {
   };
 
   continueOrderHandler = () => {
-    this.setState({ isLoading: true });
+    const queryParams = [];
 
-    // price in the real app must be calculated on server side
-    const orderData = {
-      ingredients: this.state.items,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Lech Cirmirakis",
-        address: {
-          street: "Marszalkowska",
-          zipCode: "01-800",
-          country: "Poland",
-        },
-      },
-      email: "test@test.com.pl",
-      delivery: "Uber Eats",
-    };
+    for (let i in this.state.items) {
+      queryParams.push(
+        encodeURIComponent(i) + "=" + encodeURIComponent(this.state.items[i])
+      );
+    }
 
-    axios
-      .post("/orders.json", orderData)
-      .then(response => {
-        this.setState({ isLoading: false, isPurchasing: false });
-        this.resetBurger();
-      })
-      .catch(error => {
-        this.setState({ isLoading: false, isPurchasing: false });
-        this.resetBurger();
-      });
+    queryParams.push("price=" + this.state.totalPrice);
+    const queryString = queryParams.join("&");
+  
+    this.props.history.push({
+      pathname: "/checkout",
+      search: "?" + queryString,
+    });
   };
 
   componentDidMount() {

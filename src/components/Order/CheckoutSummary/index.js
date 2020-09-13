@@ -2,8 +2,9 @@ import React from "react";
 import Burger from "../../Burger/";
 import { OrderSummaryButton } from "../../../styles/button";
 import { CheckoutSummaryWrapper, ButtonsBox } from "./styles";
+import PropTypes from "prop-types";
 
-const checkoutSummary = ({ items }) => {
+const checkoutSummary = ({ items, checkoutCancelled, checkoutContinue }) => {
   return (
     <CheckoutSummaryWrapper>
       <h1>We hope it taste well !</h1>
@@ -11,13 +12,25 @@ const checkoutSummary = ({ items }) => {
         <Burger items={items} />
       </div>
       <ButtonsBox style={{ display: "flex" }}>
-        <OrderSummaryButton cancel style={{ marginLeft: "10px" }}>
+        <OrderSummaryButton
+          onClick={checkoutCancelled}
+          cancel
+          style={{ marginLeft: "10px" }}
+        >
           cancel
         </OrderSummaryButton>
-        <OrderSummaryButton>continue</OrderSummaryButton>
+        <OrderSummaryButton onClick={checkoutContinue}>
+          continue
+        </OrderSummaryButton>
       </ButtonsBox>
     </CheckoutSummaryWrapper>
   );
+};
+
+checkoutSummary.propTypes = {
+  items: PropTypes.object,
+  checkoutCancelled: PropTypes.func.isRequired,
+  checkoutContinue: PropTypes.func.isRequired,
 };
 
 export default checkoutSummary;
