@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Order from "../../components/Order/";
+import Spinner from "../../components/UI/Spinner";
 import axios from "../../utilities/axios-orders";
 
 class Orders extends Component {
@@ -29,7 +30,6 @@ class Orders extends Component {
 
   render() {
     const showOrders = order => {
-      console.log(order);
       const { customer, id, totalPrice, ingredients } = order;
       const items = [];
 
@@ -50,7 +50,11 @@ class Orders extends Component {
       );
     };
 
-    return <div>{this.state.orders.map(showOrders)}</div>;
+    return (
+      <>
+        {this.state.isLoading ? <Spinner /> : this.state.orders.map(showOrders)}
+      </>
+    );
   }
 }
 export default Orders;
