@@ -4,17 +4,13 @@ import { ContactDataWrapper } from "./styles";
 import PropTypes from "prop-types";
 import axios from "../../utilities/axios-orders";
 
+import { orderForm } from "../../static/formInputs";
 import Spinner from "../../components/UI/Spinner";
-import Input from '../../components/UI/Input';
+import Input from "../../components/UI/Input";
 
 class ContactData extends Component {
   state = {
-    name: "",
-    email: "",
-    address: {
-      street: "",
-      postalCode: "",
-    },
+    orderForm: orderForm,
     isLoading: false,
   };
 
@@ -49,16 +45,48 @@ class ContactData extends Component {
       });
   };
 
+  inputChangeHandler = (event, inputId) => {
+    // aby zmieniać state "immutable", a jest to obiekt czyli typ referencyjny
+    // potrzebujemy zclonować obiekt głebiej ponieważ mamy zagnieżdzone obiekty
+    const updatedOrderForm = { ...this.state.orderForm };
+    const updatedFormElement = { ...updatedOrderForm[inputId] };
+
+    updatedFormElement.value = event.target.value;
+
+    updatedOrderForm[inputId] = updatedFormElement;
+    this.setState({ orderForm: updatedOrderForm });
+  };
+
   render() {
+    const formElementsArray = [];
+
+    for (let key in this.state.orderForm) {
+      formElementsArray.push({
+        id: key,
+        config: this.state.orderForm[key],
+      });
+    }
+
+    const showFormInputs = formInput => {
+      const { id, config } = formInput;
+      return (
+        <Input
+          key={id}
+          elementType={config.elementType}
+          elementConfig={config.elementConfig}
+          value={config.value}
+          changed={event => this.inputChangeHandler(event, id)}
+        />
+      );
+    };
+
     let form = (
       <form>
-        <Input inputType="input" name="name" placeholder="Your Name" />
-        <Input inputType="input" name="email" placeholder="Your Email" />
-        <Input inputType="input" name="street" placeholder="Your Adress" />
-        <Input inputType="input" name="postal" placeholder="Your Postal Code" />
+        {formElementsArray.map(showFormInputs)}
         <button onClick={this.orderHandler}>Order</button>
       </form>
     );
+
     if (this.state.isLoading) {
       form = <Spinner />;
     }
