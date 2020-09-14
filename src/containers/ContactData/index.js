@@ -18,24 +18,21 @@ class ContactData extends Component {
     event.preventDefault();
     this.setState({ isLoading: true });
 
+    const formData = {};
+
+    for (let formElementId in this.state.orderForm) {
+      formData[formElementId] = this.state.orderForm[formElementId].value;
+    }
+
     // price in the real app must be calculated on server side
-    const orderData = {
+    const order = {
       ingredients: this.props.items,
       totalPrice: this.props.price,
-      customer: {
-        name: "Lech Cirmirakis",
-        address: {
-          street: "Marszalkowska",
-          zipCode: "01-800",
-          country: "Poland",
-        },
-      },
-      email: "test@test.com.pl",
-      delivery: "Uber Eats",
+      orderData: formData,
     };
 
     axios
-      .post("/orders.json", orderData)
+      .post("/orders.json", order)
       .then(response => {
         this.setState({ isLoading: false });
         this.props.history.push("/");
@@ -81,9 +78,9 @@ class ContactData extends Component {
     };
 
     let form = (
-      <form>
+      <form onSubmit={this.orderHandler}>
         {formElementsArray.map(showFormInputs)}
-        <button onClick={this.orderHandler}>Order</button>
+        <button>Order</button>
       </form>
     );
 
