@@ -12,6 +12,7 @@ export const orderForm = {
       required: true,
     },
     valid: false,
+    touched: false,
   },
   street: {
     elementType: "input",
@@ -24,6 +25,7 @@ export const orderForm = {
       required: true,
     },
     valid: false,
+    touched: false,
   },
   zipCode: {
     elementType: "input",
@@ -38,6 +40,7 @@ export const orderForm = {
       maxLength: 5,
     },
     valid: false,
+    touched: false,
   },
   country: {
     elementType: "input",
@@ -50,6 +53,7 @@ export const orderForm = {
       required: true,
     },
     valid: false,
+    touched: false,
   },
   email: {
     elementType: "input",
@@ -62,6 +66,7 @@ export const orderForm = {
       required: true,
     },
     valid: false,
+    touched: false,
   },
   deliveryMethod: {
     elementType: "select",
@@ -82,5 +87,7 @@ export const orderForm = {
       ],
     },
     value: "",
+    validation: {},
+    valid: true,
   },
 };

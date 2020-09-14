@@ -18,6 +18,11 @@ export const InputWrapper = styled.div`
       background-color: #efefef;
     }
   }
+
+  .invalid {
+    border: 1px solid red;
+    background-color: salmon;
+  }
 `;
 
 export const LabelBox = styled.label`

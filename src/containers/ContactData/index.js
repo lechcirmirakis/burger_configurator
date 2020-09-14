@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { ContactDataWrapper } from "./styles";
+import { OrderSummaryButton } from "../../styles/button";
 import PropTypes from "prop-types";
 import axios from "../../utilities/axios-orders";
 
@@ -12,6 +13,7 @@ class ContactData extends Component {
   state = {
     orderForm: orderForm,
     isLoading: false,
+    formIsValid: false,
   };
 
   orderHandler = event => {
@@ -43,18 +45,22 @@ class ContactData extends Component {
   };
 
   checkValidity = (value, rules) => {
-    let isValid = false;
+    let isValid = true;
+
+    if (!rules) {
+      return true;
+    }
 
     if (rules.required) {
-      isValid = value.trim() !== "";
+      isValid = value.trim() !== "" && isValid;
     }
 
     if (rules.minLength) {
-      isValid = value.length >= rules.minLength;
+      isValid = value.length >= rules.minLength && isValid;
     }
 
     if (rules.maxLength) {
-      isValid = value.length <= rules.maxLength;
+      isValid = value.length <= rules.maxLength && isValid;
     }
 
     return isValid;
@@ -73,10 +79,17 @@ class ContactData extends Component {
       updatedFormElement.validation
     );
 
-    console.log(updatedFormElement);
+    updatedFormElement.touched = true;
 
     updatedOrderForm[inputId] = updatedFormElement;
-    this.setState({ orderForm: updatedOrderForm });
+
+    // check if all inputs in form is valid to get all form is valid state
+    let formIsValid = true;
+    for (let inputId in updatedOrderForm) {
+      formIsValid = updatedOrderForm[inputId].valid && formIsValid;
+    }
+
+    this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
   };
 
   render() {
@@ -91,13 +104,25 @@ class ContactData extends Component {
 
     const showFormInputs = formInput => {
       const { id, config } = formInput;
+      const {
+        elementType,
+        elementConfig,
+        value,
+        valid,
+        validation,
+        touched,
+      } = config;
+
       return (
         <Input
           key={id}
-          elementType={config.elementType}
-          elementConfig={config.elementConfig}
-          value={config.value}
+          elementType={elementType}
+          elementConfig={elementConfig}
+          value={value}
           changed={event => this.inputChangeHandler(event, id)}
+          invalid={!valid}
+          shouldValidate={validation}
+          touched={touched}
         />
       );
     };
@@ -105,7 +130,11 @@ class ContactData extends Component {
     let form = (
       <form onSubmit={this.orderHandler}>
         {formElementsArray.map(showFormInputs)}
-        <button>Order</button>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <OrderSummaryButton disabled={!this.state.formIsValid}>
+            Order
+          </OrderSummaryButton>
+        </div>
       </form>
     );
 
