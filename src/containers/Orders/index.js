@@ -30,7 +30,7 @@ class Orders extends Component {
 
   render() {
     const showOrders = order => {
-      const { customer, id, totalPrice, ingredients } = order;
+      const { orderData, id, totalPrice, ingredients } = order;
       const items = [];
 
       for (let item in ingredients) {
@@ -42,7 +42,7 @@ class Orders extends Component {
 
       return (
         <Order
-          name={customer.name}
+          name={orderData.name}
           totalPrice={totalPrice}
           key={id}
           ingredients={items}

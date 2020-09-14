@@ -8,6 +8,10 @@ export const orderForm = {
       placeholder: "Your Name",
     },
     value: "",
+    validation: {
+      required: true,
+    },
+    valid: false,
   },
   street: {
     elementType: "input",
@@ -16,6 +20,10 @@ export const orderForm = {
       placeholder: "Street",
     },
     value: "",
+    validation: {
+      required: true,
+    },
+    valid: false,
   },
   zipCode: {
     elementType: "input",
@@ -24,6 +32,12 @@ export const orderForm = {
       placeholder: "Zip Code",
     },
     value: "",
+    validation: {
+      required: true,
+      minLength: 5,
+      maxLength: 5,
+    },
+    valid: false,
   },
   country: {
     elementType: "input",
@@ -32,6 +46,10 @@ export const orderForm = {
       placeholder: "Country",
     },
     value: "",
+    validation: {
+      required: true,
+    },
+    valid: false,
   },
   email: {
     elementType: "input",
@@ -40,6 +58,10 @@ export const orderForm = {
       placeholder: "Your Mail",
     },
     value: "",
+    validation: {
+      required: true,
+    },
+    valid: false,
   },
   deliveryMethod: {
     elementType: "select",

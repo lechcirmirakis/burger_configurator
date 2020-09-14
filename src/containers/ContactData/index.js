@@ -42,6 +42,24 @@ class ContactData extends Component {
       });
   };
 
+  checkValidity = (value, rules) => {
+    let isValid = false;
+
+    if (rules.required) {
+      isValid = value.trim() !== "";
+    }
+
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength;
+    }
+
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength;
+    }
+
+    return isValid;
+  };
+
   inputChangeHandler = (event, inputId) => {
     // aby zmieniać state "immutable", a jest to obiekt czyli typ referencyjny
     // potrzebujemy zclonować obiekt głebiej ponieważ mamy zagnieżdzone obiekty
@@ -49,6 +67,13 @@ class ContactData extends Component {
     const updatedFormElement = { ...updatedOrderForm[inputId] };
 
     updatedFormElement.value = event.target.value;
+
+    updatedFormElement.valid = this.checkValidity(
+      updatedFormElement.value,
+      updatedFormElement.validation
+    );
+
+    console.log(updatedFormElement);
 
     updatedOrderForm[inputId] = updatedFormElement;
     this.setState({ orderForm: updatedOrderForm });
