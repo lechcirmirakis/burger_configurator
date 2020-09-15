@@ -1,6 +1,7 @@
 import React from "react";
-import { NavToggleBox } from "./styles";
 import PropTypes from "prop-types";
+
+import { NavToggleBox } from "./styles";
 
 const navToggle = ({ clicked }) => {
   return (

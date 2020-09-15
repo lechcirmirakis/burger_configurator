@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import Burger from "../../Burger/";
+
 import { OrderSummaryButton } from "../../../styles/button";
 import { CheckoutSummaryWrapper, ButtonsBox } from "./styles";
-import PropTypes from "prop-types";
 
 const checkoutSummary = ({ items, checkoutCancelled, checkoutContinue }) => {
   return (

@@ -1,9 +1,11 @@
 import React from "react";
-import { ToolbarWrapper, NavigationWrapper } from "./styles";
-import Logo from "../../Logo/";
+import PropTypes from "prop-types";
+
 import NavigationItems from "../NavigationItems";
 import NavToggle from "../MobileNav/NavToggle";
-import PropTypes from "prop-types";
+
+import Logo from "../../Logo/";
+import { ToolbarWrapper, NavigationWrapper } from "./styles";
 
 const toolbar = ({ openHandler }) => {
   return (

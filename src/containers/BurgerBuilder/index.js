@@ -1,12 +1,14 @@
 import React, { Component } from "react";
+
+import axios from "../../utilities/axios-orders";
+import { disabledControlsInfo } from "../../utilities";
+import { ITEMS_PRICES } from "../../static/items";
+import withErrorHandler from "../../hoc/withErrorHandler";
+
 import Burger from "../../components/Burger";
 import BuildControls from "../../components/Burger/BuildControls/";
-import { ITEMS_PRICES } from "../../static/items";
-import { disabledControlsInfo } from "../../utilities";
 import Modal from "../../components/UI/Modal/index";
 import OrderSummary from "../../components/Burger/OrderSummary";
-import withErrorHandler from "../../hoc/withErrorHandler";
-import axios from "../../utilities/axios-orders";
 import Spinner from "../../components/UI/Spinner/";
 
 class BurgerBuilder extends Component {
@@ -67,7 +69,7 @@ class BurgerBuilder extends Component {
 
     queryParams.push("price=" + this.state.totalPrice);
     const queryString = queryParams.join("&");
-  
+
     this.props.history.push({
       pathname: "/checkout",
       search: "?" + queryString,

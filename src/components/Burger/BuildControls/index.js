@@ -1,9 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+import { controls } from "../../../static/items";
+
+import Control from "./Control/";
+
 import { BuildControlsWrapper } from "./styles";
 import { OrderButton } from "../../../styles/button";
-import Control from "./Control/";
-import { controls } from "../../../static/items";
-import PropTypes from "prop-types";
 
 const buildControls = ({
   updateItems,

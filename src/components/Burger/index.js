@@ -1,10 +1,11 @@
 import React from "react";
-import { BurgerWrapper } from "./styles";
-import BurgerItem from "./BurgerItem/";
 import PropTypes from "prop-types";
 
-const burger = ({ items }) => {
+import BurgerItem from "./BurgerItem/";
 
+import { BurgerWrapper } from "./styles";
+
+const burger = ({ items }) => {
   // transform object od items to array of items and
   // check if array dont have any items
 

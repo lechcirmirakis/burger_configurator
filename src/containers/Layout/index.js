@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { MainWrapper } from "./styles";
+
 import Toolbar from "../../components/Navigation/Toolbar";
 import MobileNav from "../../components/Navigation/MobileNav";
+
+import { MainWrapper } from "./styles";
 
 class Layout extends Component {
   state = {

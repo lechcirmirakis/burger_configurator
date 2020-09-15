@@ -1,4 +1,5 @@
 import React from "react";
+
 import gifLoader from "../../../assets/loader.svg";
 import { SpinnerBox } from "./styles";
 

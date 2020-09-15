@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { ContactDataWrapper } from "./styles";
-import { OrderSummaryButton } from "../../styles/button";
 import PropTypes from "prop-types";
-import axios from "../../utilities/axios-orders";
 
+import axios from "../../utilities/axios-orders";
 import { orderForm } from "../../static/formInputs";
+
 import Spinner from "../../components/UI/Spinner";
 import Input from "../../components/UI/Input";
+
+import { ContactDataWrapper } from "./styles";
+import { OrderSummaryButton } from "../../styles/button";
 
 class ContactData extends Component {
   state = {

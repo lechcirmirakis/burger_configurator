@@ -1,9 +1,11 @@
 import React from "react";
-import Logo from "../../Logo";
-import NavigationItems from "../NavigationItems";
-import { MobileNavWrapper } from "./styles";
-import Backdrop from "../../UI/Backdrop";
 import PropTypes from "prop-types";
+
+import NavigationItems from "../NavigationItems";
+import Backdrop from "../../UI/Backdrop";
+
+import Logo from "../../Logo";
+import { MobileNavWrapper } from "./styles";
 
 const mobileNav = ({ closed, open }) => {
   //...

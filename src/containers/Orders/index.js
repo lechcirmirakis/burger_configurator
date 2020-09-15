@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+
+import axios from "../../utilities/axios-orders";
+
 import Order from "../../components/Order/";
 import Spinner from "../../components/UI/Spinner";
-import axios from "../../utilities/axios-orders";
 
 class Orders extends Component {
   state = {

@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import burgerLogo from "../../assets/burger-logo.png";
 import { LogoWrapper } from "./styles";
-import PropTypes from "prop-types";
 
 const logo = ({ height }) => {
   return (

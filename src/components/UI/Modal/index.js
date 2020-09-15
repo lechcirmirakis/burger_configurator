@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { ModalWrapper } from "./styles";
-import Backdrop from "../Backdrop/";
 import PropTypes from "prop-types";
+
+import Backdrop from "../Backdrop/";
+
+import { ModalWrapper } from "./styles";
 
 class Modal extends Component {
   shouldComponentUpdate(nextProps, nextState) {

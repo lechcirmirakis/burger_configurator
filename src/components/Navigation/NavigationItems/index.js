@@ -1,6 +1,8 @@
 import React from "react";
-import { NavigationItemsBox } from "./styles";
+
 import NavItem from "./NavItem";
+
+import { NavigationItemsBox } from "./styles";
 
 export const navigationItems = () => {
   return (

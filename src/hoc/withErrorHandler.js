@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import Modal from "../components/UI/Modal";
 
 // High Order Component to handling errors with sending request to server by asiox

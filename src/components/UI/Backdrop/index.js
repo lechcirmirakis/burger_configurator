@@ -1,6 +1,7 @@
 import React from "react";
-import { BackdropWrapper } from "./styles";
 import PropTypes from "prop-types";
+
+import { BackdropWrapper } from "./styles";
 
 const backdrop = ({ show, click }) =>
   show ? <BackdropWrapper onClick={click} /> : null;

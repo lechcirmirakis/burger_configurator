@@ -1,7 +1,7 @@
 import React from "react";
-import { ControlWrapper, ControlLabel } from "./style";
 import PropTypes from "prop-types";
 
+import { ControlWrapper, ControlLabel } from "./style";
 import { ControlButton } from "../../../../styles/button";
 
 const control = ({ label, updateItems, type, disabled }) => {
