@@ -15,7 +15,6 @@ import * as actionTypes from "../../store/actions";
 class BurgerBuilder extends Component {
   state = {
     totalPrice: 2,
-    isPurchasable: true,
     isPurchasing: false,
     isLoading: false,
     error: false,
@@ -24,9 +23,7 @@ class BurgerBuilder extends Component {
   // Function for enabled/disablen 'Order Now' button
   updatePurchaseState = items => {
     const sumOfPrices = Object.values(items).reduce((a, b) => a + b, 0);
-    this.setState({
-      isPurchasable: sumOfPrices <= 0,
-    });
+    return sumOfPrices <= 0
   };
 
   orderSummaryToggle = () => {
@@ -84,7 +81,7 @@ class BurgerBuilder extends Component {
             disabledInfo={disabledControlsInfo(items)}
             ordered={this.orderSummaryToggle}
             currentPrice={this.state.totalPrice}
-            isPurchasable={this.state.isPurchasable}
+            isPurchasable={this.updatePurchaseState(items)}
           />
         </>
       );
