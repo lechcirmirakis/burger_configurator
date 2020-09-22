@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 import NavigationItems from "../NavigationItems";
 import NavToggle from "../MobileNav/NavToggle";
-
 import Logo from "../../Logo/";
+
 import { ToolbarWrapper, NavigationWrapper } from "./styles";
 
 const toolbar = ({ openHandler }) => {

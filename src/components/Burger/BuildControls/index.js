@@ -9,7 +9,8 @@ import { BuildControlsWrapper } from "./styles";
 import { OrderButton } from "../../../styles/button";
 
 const buildControls = ({
-  updateItems,
+  itemAdded,
+  itemRemove,
   disabledInfo,
   currentPrice,
   isPurchasable,
@@ -20,10 +21,10 @@ const buildControls = ({
 
     return (
       <Control
-        updateItems={updateItems}
+        itemAdded={() => itemRemove(type)}
+        itemRemove={() => itemAdded(type)}
         label={label}
         key={type}
-        type={type}
         disabled={disabledInfo[type]}
       />
     );
@@ -41,7 +42,8 @@ const buildControls = ({
 };
 
 buildControls.propTypes = {
-  updateItems: PropTypes.func.isRequired,
+  itemAdded: PropTypes.func.isRequired,
+  itemRemove: PropTypes.func.isRequired,
   ordered: PropTypes.func.isRequired,
   currentPrice: PropTypes.number,
   isPurchasable: PropTypes.bool,

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import axios from "../../utilities/axios-orders";
 import { disabledControlsInfo } from "../../utilities";
-import { ITEMS_PRICES } from "../../static/items";
 import withErrorHandler from "../../hoc/withErrorHandler";
 
 import Burger from "../../components/Burger";
@@ -10,38 +10,15 @@ import BuildControls from "../../components/Burger/BuildControls/";
 import Modal from "../../components/UI/Modal/index";
 import OrderSummary from "../../components/Burger/OrderSummary";
 import Spinner from "../../components/UI/Spinner/";
+import * as actionTypes from "../../store/actions";
 
 class BurgerBuilder extends Component {
   state = {
-    items: null,
     totalPrice: 2,
     isPurchasable: true,
     isPurchasing: false,
     isLoading: false,
     error: false,
-  };
-
-  // One function for add/remove of burger items
-  updatedItemsHandler = (type, kind) => {
-    const updatedItems = { ...this.state.items };
-    if (this.state.items[type] <= 0 && kind === "remove") {
-      return;
-    }
-
-    updatedItems[type] =
-      kind === "add" ? this.state.items[type] + 1 : this.state.items[type] - 1;
-
-    const updatedPrice =
-      kind === "add"
-        ? this.state.totalPrice + ITEMS_PRICES[type]
-        : this.state.totalPrice - ITEMS_PRICES[type];
-
-    this.setState({
-      items: updatedItems,
-      totalPrice: Math.round(updatedPrice * 10) / 10,
-    });
-
-    this.updatePurchaseState(updatedItems);
   };
 
   // Function for enabled/disablen 'Order Now' button
@@ -61,9 +38,9 @@ class BurgerBuilder extends Component {
   continueOrderHandler = () => {
     const queryParams = [];
 
-    for (let i in this.state.items) {
+    for (let i in this.props.items) {
       queryParams.push(
-        encodeURIComponent(i) + "=" + encodeURIComponent(this.state.items[i])
+        encodeURIComponent(i) + "=" + encodeURIComponent(this.props.items[i])
       );
     }
 
@@ -77,17 +54,19 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get("/ingredients.json")
-      .then(res => {
-        this.setState({ items: res.data });
-      })
-      .catch(err => {
-        this.setState({ error: true });
-      });
+    // axios
+    //   .get("/ingredients.json")
+    //   .then(res => {
+    //     this.setState({ items: res.data });
+    //   })
+    //   .catch(err => {
+    //     this.setState({ error: true });
+    //   });
   }
 
   render() {
+    const { items, onItemsAdded, onItemsRemove } = this.props;
+
     let orderSummary = null;
     let burger = this.state.error ? (
       <p>Items can`t be loaded !</p>
@@ -95,13 +74,14 @@ class BurgerBuilder extends Component {
       <Spinner />
     );
 
-    if (this.state.items) {
+    if (items) {
       burger = (
         <>
-          <Burger items={this.state.items} />
+          <Burger items={items} />
           <BuildControls
-            updateItems={this.updatedItemsHandler}
-            disabledInfo={disabledControlsInfo(this.state.items)}
+            itemAdded={onItemsAdded}
+            itemRemove={onItemsRemove}
+            disabledInfo={disabledControlsInfo(items)}
             ordered={this.orderSummaryToggle}
             currentPrice={this.state.totalPrice}
             isPurchasable={this.state.isPurchasable}
@@ -113,7 +93,7 @@ class BurgerBuilder extends Component {
         <OrderSummary
           cancelOrderHandler={this.orderSummaryToggle}
           continueOrderHandler={this.continueOrderHandler}
-          items={this.state.items}
+          items={this.props.items}
           price={this.state.totalPrice}
         />
       );
@@ -137,4 +117,22 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default withErrorHandler(BurgerBuilder, axios);
+const mapStateToProps = state => {
+  return {
+    items: state.items,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onItemsAdded: name =>
+      dispatch({ type: actionTypes.ADD_INGREDIENT, itemName: name }),
+    onItemsRemove: name =>
+      dispatch({ type: actionTypes.REMOVE_INGREDIENT, itemName: name }),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(BurgerBuilder, axios));

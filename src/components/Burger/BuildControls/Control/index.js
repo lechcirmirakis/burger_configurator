@@ -4,18 +4,14 @@ import PropTypes from "prop-types";
 import { ControlWrapper, ControlLabel } from "./style";
 import { ControlButton } from "../../../../styles/button";
 
-const control = ({ label, updateItems, type, disabled }) => {
+const control = ({ label, itemAdded, itemRemove, disabled }) => {
   return (
     <ControlWrapper>
       <ControlLabel>{label}</ControlLabel>
-      <ControlButton
-        onClick={() => updateItems(type, "remove")}
-        add={false}
-        disabled={disabled}
-      >
+      <ControlButton onClick={itemAdded} add={false} disabled={disabled}>
         Remove
       </ControlButton>
-      <ControlButton onClick={() => updateItems(type, "add")} add>
+      <ControlButton onClick={itemRemove} add>
         Add
       </ControlButton>
     </ControlWrapper>
@@ -24,8 +20,8 @@ const control = ({ label, updateItems, type, disabled }) => {
 
 control.propTypes = {
   label: PropTypes.string,
-  updateItems: PropTypes.func,
-  type: PropTypes.string,
+  itemAdded: PropTypes.func,
+  itemRemove: PropTypes.func,
   disabled: PropTypes.bool,
 };
 

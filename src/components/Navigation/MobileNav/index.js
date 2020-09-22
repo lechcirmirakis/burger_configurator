@@ -12,7 +12,7 @@ const mobileNav = ({ closed, open }) => {
 
   return (
     <>
-      <Backdrop show={open} click={closed} />
+      <Backdrop show={open} click={closed} mobile />
       <MobileNavWrapper open={open}>
         <Logo height="10%" />
         <nav>

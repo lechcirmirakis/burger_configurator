@@ -9,6 +9,8 @@ const burger = ({ items }) => {
   // transform object od items to array of items and
   // check if array dont have any items
 
+  console.log(items);
+
   let transformedItems = Object.keys(items)
     .map(itKey => {
       return [...Array(items[itKey])].map((_, i) => (
