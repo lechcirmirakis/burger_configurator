@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import axios from "../../utilities/axios-orders";
@@ -155,7 +155,14 @@ class ContactData extends Component {
 
 ContactData.propTypes = {
   items: PropTypes.object,
-  totalPrice: PropTypes.number,
+  price: PropTypes.number,
 };
 
-export default withRouter(ContactData);
+const mapStateToProps = state => {
+  return {
+    items: state.items,
+    price: state.totalPrice,
+  };
+};
+
+export default connect(mapStateToProps)(ContactData);

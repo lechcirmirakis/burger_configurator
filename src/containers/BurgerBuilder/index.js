@@ -14,7 +14,6 @@ import * as actionTypes from "../../store/actions";
 
 class BurgerBuilder extends Component {
   state = {
-    totalPrice: 2,
     isPurchasing: false,
     isLoading: false,
     error: false,
@@ -23,7 +22,7 @@ class BurgerBuilder extends Component {
   // Function for enabled/disablen 'Order Now' button
   updatePurchaseState = items => {
     const sumOfPrices = Object.values(items).reduce((a, b) => a + b, 0);
-    return sumOfPrices <= 0
+    return sumOfPrices <= 0;
   };
 
   orderSummaryToggle = () => {
@@ -33,21 +32,7 @@ class BurgerBuilder extends Component {
   };
 
   continueOrderHandler = () => {
-    const queryParams = [];
-
-    for (let i in this.props.items) {
-      queryParams.push(
-        encodeURIComponent(i) + "=" + encodeURIComponent(this.props.items[i])
-      );
-    }
-
-    queryParams.push("price=" + this.state.totalPrice);
-    const queryString = queryParams.join("&");
-
-    this.props.history.push({
-      pathname: "/checkout",
-      search: "?" + queryString,
-    });
+    this.props.history.push("/checkout");
   };
 
   componentDidMount() {
@@ -91,7 +76,7 @@ class BurgerBuilder extends Component {
           cancelOrderHandler={this.orderSummaryToggle}
           continueOrderHandler={this.continueOrderHandler}
           items={this.props.items}
-          price={this.state.totalPrice}
+          price={this.props.price}
         />
       );
     }
@@ -117,6 +102,7 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
   return {
     items: state.items,
+    price: state.totalPrice,
   };
 };
 

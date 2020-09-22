@@ -1,61 +1,37 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
+import { connect } from "react-redux";
 
 import CheckoutSummary from "../../components/Order/CheckoutSummary";
 import ContactData from "../ContactData/";
 
-class Checkout extends Component {
-  state = {
-    items: {},
-    totalPrice: 0,
+const checkout = props => {
+  const { history, items, match } = props;
+
+  const checkoutCancelledHandler = () => {
+    history.goBack();
   };
 
-  componentDidMount() {
-    const query = new URLSearchParams(this.props.location.search);
-    const items = {};
-    let price = null;
-
-    // entries, metoda pozwalająca wyciągać dla nas dane z urla
-
-    for (let param of query.entries()) {
-      if (param[0] === "price") {
-        price = param[1];
-      } else {
-        items[param[0]] = +param[1];
-      }
-    }
-
-    this.setState({ items: items, totalPrice: +price });
-  }
-
-  checkoutCancelledHandler = () => {
-    this.props.history.goBack();
+  const checkoutContinue = () => {
+    history.replace("/checkout/contact-data");
   };
 
-  checkoutContinue = () => {
-    this.props.history.replace("/checkout/contact-data");
+  return (
+    <div>
+      <CheckoutSummary
+        items={items}
+        checkoutCancelled={checkoutCancelledHandler}
+        checkoutContinue={checkoutContinue}
+      />
+      <Route path={match.path + "/contact-data"} component={ContactData} />
+    </div>
+  );
+};
+
+const mapStateToProps = state => {
+  return {
+    items: state.items,
   };
+};
 
-  render() {
-    return (
-      <div>
-        <CheckoutSummary
-          items={this.state.items}
-          checkoutCancelled={this.checkoutCancelledHandler}
-          checkoutContinue={this.checkoutContinue}
-        />
-        <Route
-          path={this.props.match.path + "/contact-data"}
-          render={() => (
-            <ContactData
-              items={this.state.items}
-              price={this.state.totalPrice}
-            />
-          )}
-        />
-      </div>
-    );
-  }
-}
-
-export default Checkout;
+export default connect(mapStateToProps)(checkout);
